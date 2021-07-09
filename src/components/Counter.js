@@ -1,29 +1,44 @@
 // import { Component } from 'react';
 import {useSelector , useDispatch , connect} from 'react-redux';
+import { counterActions } from '../store/counter';
 import classes from './Counter.module.css';
 
 // connect function is used to help class based component to redux.
 const Counter = () => {
 
   const dispatch = useDispatch();
-  const counter = useSelector(state => state.counter);  //to extract data , run by react redux for us  
+  const counter = useSelector((state) => state.counter.counter);  //to extract data , run by react redux for us  
   // && we dont need to subscribe like previous scenerio redux do it auto matically
   
-  const show = useSelector(state => state.showCounter);
-                                                      
+  const show = useSelector((state) => state.counter.showCounter);          
+  // const incrementHandler = () =>{
+  //   dispatch({type:'increment'});
+  // };
+  // const decrementHandler= () =>{
+  //   dispatch({type:'decrement'});
+  // };
+
+  // const increaseHandler = () =>{
+  //   dispatch({type:'increase',amount: 10})
+  // };
+
+  // const toggleCounterHandler = () => {
+  //   dispatch({type:'toggle'})
+  // };
+
   const incrementHandler = () =>{
-    dispatch({type:'increment'});
+    dispatch(counterActions.increment());
   };
   const decrementHandler= () =>{
-    dispatch({type:'decrement'});
+    dispatch(counterActions.decrement());
   };
 
   const increaseHandler = () =>{
-    dispatch({type:'increase',amount: 10})
+    dispatch(counterActions.increase(10)); // {type: SOME_UNIQUE_IDENTIFIER , payload: 10}
   };
 
   const toggleCounterHandler = () => {
-    dispatch({type:'toggle'})
+    dispatch(counterActions.toggleCounter());
   };
 
   return (
@@ -38,8 +53,7 @@ const Counter = () => {
       <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );
-  
-}
+};
 
 export default Counter;
 
